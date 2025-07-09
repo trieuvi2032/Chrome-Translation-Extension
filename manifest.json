@@ -18,13 +18,21 @@
     {
       "matches": ["<all_urls>", "file://*"],
       "js": ["content.js"],
+      "css": ["style.css"],
       "run_at": "document_idle"
     }
   ],
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "16": "icon.png"
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
     }
   }
 }

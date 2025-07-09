@@ -18,16 +18,12 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
           data?.[0]?.map((item) => item[0]).join("") || "(no result)";
         const detectedLang = data?.[2] || "unknown";
 
-        console.log("[BG DEBUG] Translation result:", translatedText);
-        console.log("[BG DEBUG] Detected language:", detectedLang);
-
         sendResponse({
           translatedText,
           detectedLang,
         });
       })
       .catch((err) => {
-        console.error("[BG ERROR]", err);
         sendResponse({
           translatedText: "(error)",
           detectedLang: "unknown",
@@ -54,7 +50,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         detectedLang: data?.[2] || "unknown",
       }))
       .catch((err) => {
-        console.error("[BG ERROR] Translate failed:", err);
         return {
           translatedText: "(error)",
           detectedLang: "unknown",
@@ -74,7 +69,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
           resolve("(Pinyin not available)");
         }
       } catch (err) {
-        console.error("[BG ERROR] Pinyin generation failed:", err);
         resolve("(Pinyin error)");
       }
     });
@@ -103,13 +97,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
           toneType: "symbol",
           segment: true,
         });
-        console.log("[BG DEBUG] Pinyin generated:", pinyinResult);
       } else {
-        console.warn("[BG DEBUG] pinyinPro not available in background");
         pinyinResult = "(Pinyin library not loaded)";
       }
     } catch (err) {
-      console.error("[BG ERROR] Pinyin generation failed:", err);
       pinyinResult = "(Pinyin error)";
     }
 
