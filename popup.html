@@ -9,8 +9,20 @@
   </head>
   <body>
     <div class="container">
-      <input id="inputText" type="text" placeholder="" />
-      <button id="translateBtn">Translate</button>
+      <!-- Input + Button cùng dòng -->
+      <div class="input-row">
+        <input id="inputText" type="text" placeholder="" />
+        <button id="translateBtn">Translate</button>
+      </div>
+
+      <!-- Bubble toggle nằm dưới riêng dòng -->
+      <div class="setting-row">
+        <span class="label-gradient">Bubble</span>
+        <label class="switch">
+          <input type="checkbox" id="toggleBubble" />
+          <span class="slider"></span>
+        </label>
+      </div>
     </div>
 
     <div id="result"></div>
@@ -26,6 +38,7 @@
       © 2025 You 😉 – <a href="#">Extension Options</a> –
       <a href="#">Your Translator</a>
     </p>
+
     <script src="popup.js"></script>
   </body>
 </html>

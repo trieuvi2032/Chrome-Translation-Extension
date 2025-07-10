@@ -3,7 +3,7 @@
   "name": "Translate with Transcription",
   "version": "1.0",
   "description": "A simple translator that also shows Pinyin for Chinese.",
-  "permissions": ["activeTab", "scripting", "tabs", "clipboardRead"],
+  "permissions": ["storage", "activeTab", "scripting", "tabs", "clipboardRead"],
   "host_permissions": ["<all_urls>", "file:///*"],
   "background": {
     "service_worker": "background.js"
