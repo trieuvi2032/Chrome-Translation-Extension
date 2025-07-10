@@ -34,7 +34,7 @@ body {
 #translateBtn {
   padding: 8px 12px;
   font-weight: bold;
-  background-color: #4dabf7;
+  background-color: #f74dad;
   color: white;
   border: none;
   border-radius: 6px;
@@ -42,7 +42,7 @@ body {
 }
 
 #translateBtn:hover {
-  background-color: #3a96e8;
+  background-color: #f59fcb;
 }
 
 .setting-row {
@@ -50,12 +50,12 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-top: 7px;
-  padding: 0;
+  padding: 5px;
 }
 
 .label-gradient {
   font-weight: bold;
-  background: linear-gradient(to right, #8a2be2, #00bfff);
+  background: linear-gradient(to right, #e22b8d, #00bfff);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -66,7 +66,7 @@ body {
   position: relative;
   display: inline-block;
   width: 36px;
-  height: 20px;
+  height: 15px;
 }
 
 .switch input {
@@ -90,9 +90,9 @@ body {
 .slider:before {
   position: absolute;
   content: "";
-  height: 14px;
+  height: 9px;
   width: 14px;
-  left: 3px;
+  left: 2px;
   bottom: 3px;
   background-color: white;
   transition: 0.4s;
@@ -100,7 +100,7 @@ body {
 }
 
 input:checked + .slider {
-  background-color: #4aa3df;
+  background-color: #df4a9c;
 }
 
 input:checked + .slider:before {
@@ -108,17 +108,18 @@ input:checked + .slider:before {
 }
 
 #result {
-  width: 100%;
+  width: calc(100% - 28px); /* trừ 14px mỗi bên */
   box-sizing: border-box;
-  padding-left: 14px;
-  padding-right: 14px;
-  padding-top: 10px;
-  display: none; /* 👈 bắt đầu ẩn */
+  background-color: #e5f2ff;
+  padding: 10px 14px;
+  margin: 0 14px; /* đảm bảo không lệch container */
+  border-radius: 8px;
+  display: none; /* hiện khi cần */
 }
 
 .label {
   font-size: 12px;
-  color: #a7a7a7;
+  color: #b5e7e9;
   padding-bottom: 1.5px;
   font-weight: bold;
   text-transform: uppercase;
@@ -141,7 +142,7 @@ input:checked + .slider:before {
 .footer-bottom {
   font-size: 11px;
   color: #555;
-  margin-top: 5px;
+  margin-top: 7px;
   text-align: center;
 }
 
