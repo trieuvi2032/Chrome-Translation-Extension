@@ -19,12 +19,10 @@
     }
   };
 
-  // --- Mouseup để hiển thị bubble nếu bật ---
   document.addEventListener("mouseup", () => {
     const selection = window.getSelection().toString().trim();
     if (!selection || selection === lastSelectedText) return;
 
-    // 🔸 Check bubbleEnabled từ storage
     chrome.storage.local.get("bubbleEnabled", (data) => {
       const enabled = data?.bubbleEnabled ?? true;
       if (!enabled) return;
@@ -39,19 +37,19 @@
       bubbleIcon = document.createElement("img");
       bubbleIcon.src = chrome.runtime.getURL("icon.png");
       bubbleIcon.style = `
-      position: absolute;
-      top: ${y + 8}px;
-      left: ${x}px;
-      width: 24px;
-      height: 24px;
-      cursor: pointer;
-      z-index: 999999;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      background: white;
-      border-radius: 4px;
-      padding: 2px;
-      user-select: none;
-    `;
+        position: absolute;
+        top: ${y + 8}px;
+        left: ${x}px;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        z-index: 999999;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        background: white;
+        border-radius: 4px;
+        padding: 2px;
+        user-select: none;
+      `;
 
       bubbleIcon.addEventListener("click", (ev) => {
         ev.stopPropagation();
@@ -67,20 +65,20 @@
 
     popupDiv = document.createElement("div");
     popupDiv.style = `
-    position:absolute; top:${y + 36}px; left:${x}px;
-    background:#fff;
-    padding:10px;
-    border-radius:6px;
-    box-shadow:
-      inset 0 0 0 2px rgba(100, 170, 255, 0.3),
-      0 4px 10px rgba(0,0,0,0.2);
-    z-index:999999;
-    max-width:320px;
-    font-size:15px;
-    font-family:'Arial','Segoe UI',sans-serif;
-    color:#333;
-    line-height:1.5;
-  `;
+      position:absolute; top:${y + 36}px; left:${x}px;
+      background:#fff;
+      padding:10px;
+      border-radius:6px;
+      box-shadow:
+        inset 0 0 0 2px rgba(100, 170, 255, 0.3),
+        0 4px 10px rgba(0,0,0,0.2);
+      z-index:999999;
+      max-width:320px;
+      font-size:15px;
+      font-family:'Arial','Segoe UI',sans-serif;
+      color:#333;
+      line-height:1.5;
+    `;
 
     const chineseLine = document.createElement("div");
     chineseLine.style.color = "#a00";
@@ -92,17 +90,19 @@
     pinyinLine.style.margin = "4px 0";
     pinyinLine.style.fontSize = "15px";
     pinyinLine.style.color = "#000";
+    pinyinLine.textContent = "";
 
     const translationLine = document.createElement("div");
     translationLine.style.fontSize = "15px";
     translationLine.style.color = "#000";
+    translationLine.textContent = "";
 
     popupDiv.appendChild(chineseLine);
     popupDiv.appendChild(pinyinLine);
     popupDiv.appendChild(translationLine);
-
     document.body.appendChild(popupDiv);
 
+    // Gửi hai request song song
     chrome.runtime.sendMessage({ type: "translate", text }, (res) => {
       const translation = res?.translatedText || "(translation error)";
       const detectedLang = res?.detectedLang || "unknown";
@@ -113,6 +113,8 @@
           const pinyin = pinRes?.pinyin || "(pinyin error)";
           pinyinLine.textContent = `[ ${pinyin} ]`;
         });
+      } else {
+        pinyinLine.textContent = "";
       }
     });
 
@@ -130,16 +132,11 @@
   chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.type === "updateBubbleStatus") {
       const isEnabled = message.value;
-
       if (!isEnabled) {
-        if (bubbleIcon) {
-          bubbleIcon.remove();
-          bubbleIcon = null;
-        }
-        if (popupDiv) {
-          popupDiv.remove();
-          popupDiv = null;
-        }
+        if (bubbleIcon) bubbleIcon.remove();
+        if (popupDiv) popupDiv.remove();
+        bubbleIcon = null;
+        popupDiv = null;
         lastSelectedText = "";
       }
     }
